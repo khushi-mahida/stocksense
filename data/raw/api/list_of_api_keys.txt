@@ -1,0 +1,131 @@
+key no 1 : 579b464db66ec23bdd000001df2fb96816b3407b6b599072df27fd6d
+Region wise, District Wise, Commodity wise, Daily food stock Position of FCI
+
+key no 2 : 579b464db66ec23bdd000001df2fb96816b3407b6b599072df27fd6d
+Current Daily Price of Various Commodities from Various Markets (Mandi)
+
+Sure — here are the **full links** you can copy and paste:
+
+1. **Mandi – Daily Commodity Prices**
+   [https://www.data.gov.in/resource/current-daily-price-various-commodities-various-markets-mandi](https://www.data.gov.in/resource/current-daily-price-various-commodities-various-markets-mandi) ([Data.gov.in][1])
+
+2. **Variety-wise Daily Market Prices of Commodities**
+   [https://www.data.gov.in/resource/variety-wise-daily-market-prices-data-commodity](https://www.data.gov.in/resource/variety-wise-daily-market-prices-data-commodity) ([Data.gov.in][2])
+
+3. **FCI – Daily Food Stock Position**
+   [https://ap.data.gov.in/catalog/region-wise-district-wise-commodity-wise-daily-food-stock-position-fci](https://ap.data.gov.in/catalog/region-wise-district-wise-commodity-wise-daily-food-stock-position-fci)
+
+4. **Milk – Daily/Weekly Retail Prices**
+   [https://www.data.gov.in/catalog/dailyweekly-retail-prices-milk](https://www.data.gov.in/catalog/dailyweekly-retail-prices-milk)
+
+5. **Tur/Arhar Dal – Daily/Weekly Retail Prices**
+   [https://www.data.gov.in/catalog/dailyweekly-retail-prices-turarhar-dal](https://www.data.gov.in/catalog/dailyweekly-retail-prices-turarhar-dal)
+
+6. **Tur/Arhar Dal – Daily/Weekly Wholesale Prices**
+   [https://ap.data.gov.in/catalog/dailyweekly-wholesale-prices-turarhar-dal](https://ap.data.gov.in/catalog/dailyweekly-wholesale-prices-turarhar-dal)
+
+7. **Mustard Oil – Daily/Weekly Retail Prices**
+   [https://www.data.gov.in/catalog/dailyweekly-retail-prices-mustard-oil-packed](https://www.data.gov.in/catalog/dailyweekly-retail-prices-mustard-oil-packed)
+
+8. **Essential Commodities – All Related Datasets**
+   [https://ap.data.gov.in/dataset-group-name/Essential%20Commodities](https://ap.data.gov.in/dataset-group-name/Essential%20Commodities)
+
+
+
+
+[1]: https://data.gov.in/resource/current-daily-price-various-commodities-various-markets-mandi?utm_source=chatgpt.com "Current Daily Price of Various Commodities from Various Markets (Mandi) | Open Government Data (OGD) Platform India"
+[2]: https://www.data.gov.in/resource/variety-wise-daily-market-prices-data-commodity?utm_source=chatgpt.com "Variety-wise Daily Market Prices Data of Commodity | Open Government Data (OGD) Platform India"
+[3]: https://www.data.gov.in/catalog/current-daily-price-various-commodities-various-markets-mandi?utm_source=chatgpt.com "Current daily price of various commodities from various markets (Mandi) | Open Government Data (OGD) Platform India"
+
+
+
+
+
+### Mandi – Daily Commodity Prices
+
+* State
+* District
+* Market
+* Commodity
+* Variety
+* Grade
+* Arrival Date
+* Min Price
+* Max Price
+* Modal Price
+
+### Variety-wise Mandi Prices
+
+* State
+* District
+* Market
+* Commodity
+* Variety
+* Grade
+* Arrival Date
+* Min Price
+* Max Price
+* Modal Price
+
+### FCI – Daily Food Stock
+
+* Region
+* District
+* State
+* Commodity
+* Stock
+* Date
+
+### Milk – Retail Prices
+
+* Date
+* Centre
+* State
+* Commodity
+* Price
+* Unit
+
+### Tur/Arhar Dal – Retail Prices
+
+* Date
+* Centre
+* State
+* Commodity
+* Price
+* Unit
+
+### Tur/Arhar Dal – Wholesale Prices
+
+* Date
+* Centre
+* State
+* Commodity
+* Price
+* Unit
+
+### Mustard Oil – Retail Prices
+
+* Date
+* Centre
+* State
+* Commodity
+* Price
+* Unit
+
+
+[1]: https://www.data.gov.in/catalog/dailyweekly-retail-prices-milk?utm_source=chatgpt.com "Daily/weekly Retail prices of Milk | Open Government Data (OGD) Platform India"
+
+
+ here is another site for data  and geting the api ? cross cheak the validation with neelam mam 
+ https://openfoodfacts.github.io/openfoodfacts-server/api/
+
+
+  this the openfoodFact   
+  password off. Here is a small javascript code that you can test in your browser console:
+
+fetch("https://world.openfoodfacts.net/api/v3.6/product/3274080005003.json", {
+  method: "GET",
+  headers: { Authorization: "Basic " + btoa("off:off") },
+})
+  .then((response) => response.json())
+  .then((json) => console.log(json));
