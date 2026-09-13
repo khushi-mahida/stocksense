@@ -18,109 +18,200 @@
 | Version Control             | Git + GitHub                                          |
 | Development Environment     | VS Code                                               |
 
+---
+
 ## External Data Sources
 
-### Government Open Data
+### 1. Government Open Data
 
-* Data.gov.in — Mandi daily commodity prices
-* Data.gov.in — FCI daily food stock position
-* Data.gov.in — Retail and wholesale prices of selected essential commodities
+**Data.gov.in**
 
-### Food Product Data
+Government datasets will be used as a source of publicly available food-market and commodity-related data.
 
-* Open Food Facts API — product, category, brand, barcode, ingredient and nutritional information
+Possible datasets include:
 
-### Retail Web Data
+* Mandi daily commodity prices
+* Food stock and availability information
+* Retail and wholesale prices of selected food commodities
 
-* Blinkit or another permitted public retail source may be incorporated as an optional web-data source, subject to the website's access rules, terms and rate limits.
+The government data will primarily provide **market-level information such as commodity prices, dates, locations and availability-related observations**.
 
-## Architecture
+---
+
+### 2. Retail Product Data
+
+**BigBasket — Web Scraping**
+
+BigBasket will be used as a retail web-data source where permitted by its website's access rules, terms of service and technical restrictions.
+
+The scraper may collect publicly visible product information such as:
+
+* Product name
+* Brand
+* Category
+* Price
+* Discount
+* Pack size
+* Availability
+* Product URL
+* Rating, where publicly available
+
+This data will help StockSense connect **market-level information with retail product-level observations**.
+
+The project will respect the website's robots.txt, terms, rate limits and other applicable restrictions.
+
+---
+
+### 3. Food Product API
+
+**Open Food Facts API**
+
+Open Food Facts will provide structured food-product information through its public API.
+
+Possible fields include:
+
+* Product name
+* Barcode
+* Brand
+* Category
+* Ingredients
+* Nutritional information
+* Product quantity
+* Food classification
+
+This source will complement the retail and government datasets by providing **additional product-level information**.
+
+---
+
+# Architecture
 
 ```text
-                 EXTERNAL DATA SOURCES
-                          |
-        +-----------------+------------------+
-        |                 |                  |
-        v                 v                  v
-   Data.gov.in      Open Food Facts     Retail Web Data
-     REST API             API             Scraping*
-        |                 |                  |
-        +-----------------+------------------+
-                          |
-                          v
-                    Python Ingestion
-                          |
-                          v
-                     Raw Data Layer
-                          |
-                    JSON / Parquet
-                          |
-                          v
-                   ETL / Validation
-                          |
-             +------------+------------+
-             |                         |
-             v                         v
-         PostgreSQL                Parquet
-             |
-             |
-             +----------------------+
-                                    |
-                                    v
-                           Analytics / ML
-                                    |
-                                    v
-                               Dashboard
+                    EXTERNAL DATA SOURCES
+                             |
+          +------------------+------------------+
+          |                  |                  |
+          v                  v                  v
+     Data.gov.in         BigBasket        Open Food Facts
+       REST API          Web Scraping          API
+          |                  |                  |
+          +------------------+------------------+
+                             |
+                             v
+                     Python Ingestion
+                             |
+                             v
+                      Raw Data Layer
+                             |
+                       JSON / Parquet
+                             |
+                             v
+                    ETL / Data Validation
+                             |
+                    +--------+--------+
+                    |                 |
+                    v                 v
+                PostgreSQL         Parquet
+                    |
+                    v
+             Analytics / ML
+                    |
+                    +----------------+
+                    |                |
+                    v                v
+              Inventory         Demand
+               Analytics       Analysis
+                    |                |
+                    +-------+--------+
+                            |
+                            v
+                       StockSense
+                        Dashboard
+                        (Streamlit)
 
 
-              REAL-TIME PIPELINE
+              REAL-TIME TRANSACTION PIPELINE
 
-             Virtual POS Simulator
-                       |
-                       v
-                Kafka Producer
-                       |
-                       v
-                  Kafka Topic
-                       |
-                       v
-                Kafka Consumer
-                       |
-                       v
-                 ETL / Validation
-                       |
-                       v
-                   PostgreSQL
-                       |
-                       v
-              Real-Time Analytics
+                    Virtual POS Simulator
+                             |
+                             v
+                      Kafka Producer
+                             |
+                             v
+                        Kafka Topic
+                             |
+                             v
+                      Kafka Consumer
+                             |
+                             v
+                    ETL / Validation
+                             |
+                             v
+                        PostgreSQL
+                             |
+                             v
+                   Real-Time Analytics
+                             |
+                             v
+                      Streamlit Dashboard
 ```
 
-## Data Engineering Concepts Demonstrated
+---
+
+# Data Engineering Concepts Demonstrated
 
 * REST API ingestion
-* Web data extraction
+* Web scraping
 * Batch data ingestion
 * Streaming data ingestion
 * ETL pipelines
 * Data validation and cleaning
 * Data normalization
+* Schema design
 * Historical data storage
 * Parquet-based analytical storage
 * Relational database design
-* Data warehousing
+* PostgreSQL
+* SQLAlchemy
 * Kafka-based event streaming
-* Real-time processing
+* Kafka producers and consumers
+* Real-time data processing
 * Feature engineering
 * Demand forecasting
 * Inventory analytics
+* Price trend analysis
 * Stock-out risk analysis
 * Data visualization
 
-## Project Goal
+---
 
-StockSense is a data engineering and analytics platform designed to combine government food-market data, food-product information and simulated retail transactions into a unified pipeline.
+# Project Goal
 
-The system collects external market and product observations, processes and stores historical data, generates a continuous stream of simulated sales transactions, and combines batch and streaming data to support inventory monitoring, demand analysis, price trends and stock-out prediction.
+StockSense is a **data engineering and analytics platform** designed to combine government food-market data, retail product data and food-product information into a unified data pipeline.
 
-The project does not claim that simulated transactions represent real customer purchases or that publicly collected retail data represents private retailer sales.
+The system collects publicly available data from **Data.gov.in**, extracts permitted retail information from **BigBasket**, and retrieves additional food-product information through the **Open Food Facts API**.
+
+The collected data is processed through Python-based ingestion and ETL pipelines, validated and transformed using Pandas, and stored in PostgreSQL and Parquet for historical analysis.
+
+To demonstrate real-time data engineering, StockSense also includes a **Virtual POS Simulator** that continuously generates simulated sales transactions. These transactions are published to Apache Kafka, consumed and processed through the streaming pipeline, and stored in PostgreSQL.
+
+The combined batch and streaming architecture supports:
+
+* Inventory monitoring
+* Product and commodity analysis
+* Retail price tracking
+* Price trend analysis
+* Sales velocity analysis
+* Demand forecasting
+* Stock-out risk prediction
+* Reorder recommendations
+* Real-time transaction analytics
+
+### Important Data Disclaimer
+
+StockSense does **not** claim that simulated POS transactions represent real customer purchases.
+
+Government datasets represent publicly available market information, while BigBasket data represents publicly accessible retail observations collected subject to applicable website rules and restrictions.
+
+Open Food Facts provides product information through its public food-product database.
+
+The project combines these sources for **educational, data engineering and analytical purposes** and does not represent private retailer sales, confidential business data or actual customer purchasing behavior.
